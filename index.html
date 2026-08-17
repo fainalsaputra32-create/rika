@@ -15,7 +15,9 @@
 body{
     font-family:'Poppins',sans-serif;
     background:black;
-    overflow:hidden;
+    /* Diubah agar halaman seluruhnya bisa di-scroll jika melebihi layar */
+    overflow-x:hidden;
+    overflow-y:auto;
     color:white;
 }
 
@@ -27,6 +29,7 @@ body{
     background:white;
     border-radius:50%;
     animation:twinkle 2s infinite;
+    z-index:-1;
 }
 
 @keyframes twinkle{
@@ -42,7 +45,7 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    padding:20px;
+    padding:40px 20px;
     text-align:center;
 }
 
@@ -94,7 +97,7 @@ img{
     width:100%;
     max-width:340px;
     max-height:250px;
-    overflow-y:auto;
+    overflow-y:auto; /* Bagian pesan tetap bisa di-scroll internal */
     background:rgba(255,255,255,0.08);
     padding:15px;
     border-radius:18px;
@@ -129,6 +132,7 @@ img{
     top:-20px;
     font-size:20px;
     animation:fall linear infinite;
+    pointer-events:none;
 }
 
 @keyframes fall{
