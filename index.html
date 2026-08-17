@@ -2,99 +2,155 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Special For You 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special For You Rika</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: black;
-    overflow: hidden;
-    color: white;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:black;
+    overflow:hidden;
+    color:white;
 }
 
 /* BINTANG */
-.star {
-    position: fixed;
-    width: 2px;
-    height: 2px;
-    background: white;
-    animation: twinkle 2s infinite;
+.star{
+    position:fixed;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite;
 }
-@keyframes twinkle {
-    0%,100% {opacity: 0.2;}
-    50% {opacity: 1;}
+
+@keyframes twinkle{
+    0%,100%{opacity:.2;}
+    50%{opacity:1;}
 }
 
 /* LOGIN */
-#login {
-    position: absolute;
-    width: 100%;
-    top: 30%;
-    text-align: center;
+#login, #main{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    text-align:center;
 }
 
-input {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    border: none;
+input{
+    width:90%;
+    max-width:300px;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
 }
 
-button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    background: pink;
-    cursor: pointer;
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:25px;
+    background:pink;
+    color:black;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
 }
 
 /* MAIN */
-#main {
-    display: none;
-    text-align: center;
-    margin-top: 50px;
+#main{
+    display:none;
 }
 
-/* CHAT STYLE */
-.chat {
-    width: 300px;
-    margin: auto;
-    text-align: left;
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 15px;
-}
-
-.msg {
-    background: pink;
-    color: black;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    animation: fade 1s;
-}
-
-@keyframes fade {
-    from {opacity:0; transform:translateY(10px);}
-    to {opacity:1;}
+/* JUDUL */
+#judul{
+    font-size:24px;
+    margin-bottom:20px;
+    padding:0 10px;
 }
 
 /* FOTO */
-img {
-    width: 150px;
-    border-radius: 20px;
-    margin: 20px;
+img{
+    width:80%;
+    max-width:250px;
+    border-radius:20px;
+    margin:15px 0;
+    box-shadow:0 0 20px rgba(255,255,255,0.2);
 }
 
-/* EMOJI */
-.fall {
-    position: fixed;
-    top: -10px;
-    animation: fall linear infinite;
+/* CHAT */
+.chat{
+    width:100%;
+    max-width:340px;
+    max-height:250px;
+    overflow-y:auto;
+    background:rgba(255,255,255,0.08);
+    padding:15px;
+    border-radius:18px;
+    backdrop-filter:blur(10px);
+    margin-top:10px;
 }
-@keyframes fall {
-    to { transform: translateY(100vh); }
+
+.msg{
+    background:pink;
+    color:black;
+    padding:10px;
+    margin:8px 0;
+    border-radius:12px;
+    font-size:14px;
+    animation:fade 1s;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* EMOJI JATUH */
+.fall{
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+/* RESPONSIVE EXTRA */
+@media(max-width:480px){
+    #judul{
+        font-size:20px;
+    }
+
+    button{
+        width:90%;
+        max-width:300px;
+    }
+
+    .chat{
+        max-height:220px;
+    }
 }
 </style>
 </head>
@@ -103,10 +159,10 @@ img {
 
 <!-- LOGIN -->
 <div id="login">
-    <h2>💌 Masuk dulu ya</h2>
-    <input id="user" placeholder="Nama"><br>
-    <input id="pass" type="password" placeholder="Password"><br>
-    <button onclick="login()">Masuk 💖</button>
+    <h2> Masuk dulu ya</h2>
+    <input id="user" placeholder="Nama">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Masuk </button>
 </div>
 
 <!-- MUSIC -->
@@ -118,42 +174,41 @@ img {
 <div id="main">
     <h1 id="judul"></h1>
 
-    <img src="foto2.jpg">
+    <img src="foto2.jpeg">
 
     <div class="chat" id="chat"></div>
 
     <button onclick="mulai()">Mulai Pesan 💬</button>
-    <br><br>
-    <button onclick="toggleMusic()">🎵 Play/Pause</button>
+    <button onclick="toggleMusic()">🎵 Play / Pause</button>
 </div>
 
 <script>
 
 /* LOGIN */
 function login(){
-    let u = document.getElementById("user").value;
-    let p = document.getElementById("pass").value;
+    let u=document.getElementById("user").value;
+    let p=document.getElementById("pass").value;
 
-    if(u === "risda" && p === "123"){
-        document.getElementById("login").style.display = "none";
-        document.getElementById("main").style.display = "block";
+    if(u==="rika" && p==="020507"){
+        document.getElementById("login").style.display="none";
+        document.getElementById("main").style.display="flex";
         document.getElementById("music").play();
         judulAnimasi();
         efek();
-    } else {
+    }else{
         alert("Salah");
     }
 }
 
-/* JUDUL ANIMASI */
+/* JUDUL */
 function judulAnimasi(){
-    let text = "🎂 Happy Birthday Risda🎂";
-    let i = 0;
-    let el = document.getElementById("judul");
+    let text="🎂 Happy Birthday Rika 🎂";
+    let i=0;
+    let el=document.getElementById("judul");
 
     function ketik(){
-        if(i < text.length){
-            el.innerHTML += text[i];
+        if(i<text.length){
+            el.innerHTML+=text[i];
             i++;
             setTimeout(ketik,100);
         }
@@ -162,7 +217,7 @@ function judulAnimasi(){
 }
 
 /* CHAT */
-let pesan = [
+let pesan=[
 "Selamat ulang tahun 🎉",
 "Semoga kamu semakin kuat menjalani kuliahmu",
 "Ingat selalu orang tua yang mendoakanmu",
@@ -171,48 +226,52 @@ let pesan = [
 '"When you want something, all the universe conspires in helping you to achieve it."'
 ];
 
-let i = 0;
+let i=0;
 
 function mulai(){
-    if(i < pesan.length){
-        let div = document.createElement("div");
-        div.className = "msg";
-        div.innerText = pesan[i];
+    if(i<pesan.length){
+        let div=document.createElement("div");
+        div.className="msg";
+        div.innerText=pesan[i];
         document.getElementById("chat").appendChild(div);
         i++;
+        document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
         setTimeout(mulai,1500);
     }
 }
 
 /* MUSIK */
 function toggleMusic(){
-    let m = document.getElementById("music");
+    let m=document.getElementById("music");
     m.paused ? m.play() : m.pause();
 }
 
 /* BINTANG */
 for(let i=0;i<100;i++){
-    let s = document.createElement("div");
-    s.className = "star";
-    s.style.left = Math.random()*100+"vw";
-    s.style.top = Math.random()*100+"vh";
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
     document.body.appendChild(s);
 }
 
 /* EFEK */
 function efek(){
     setInterval(()=>{
-        let e = document.createElement("div");
-        e.className = "fall";
-        let emoji = ["🎉","🎊","✨","🎂"];
-        e.innerHTML = emoji[Math.floor(Math.random()*emoji.length)];
-        e.style.left = Math.random()*100+"vw";
-        e.style.animationDuration = (Math.random()*3+2)+"s";
-        document.body.appendChild(e);
-        setTimeout(()=>e.remove(),4000);
-    },200);
-}
+        let e=document.createElement("div");
+        e.className="fall";
 
+        let emoji=["🎉","🎊","✨","🎂","💖"];
+        e.innerHTML=emoji[Math.floor(Math.random()*emoji.length)];
+
+        e.style.left=Math.random()*100+"vw";
+        e.style.animationDuration=(Math.random()*3+2)+"s";
+
+        document.body.appendChild(e);
+
+        setTimeout(()=>e.remove(),5000);
+    },300);
+}
 </script>
 
 </body>
